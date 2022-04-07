@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title-pag %}
+{% comment %} <h1>Lista de Productos</h1> {% endcomment %}
+{% endblock title-pag %}
+
+{% block content %}
+<div class="flex justify-center grid gap-6 lg:grid-cols-4 grid-cols-2 mx-8 my-6">
+    {% for producto in productos %}      
+        <div class="mx-8 bg-white rounded-2xl shadow-xl md:px-8 md:py-12 px-4 py-4 lg:px-8 align-center">
+                <img class="object-center h-40" src="{{ producto.imagen_producto.url }}"><br>
+            <div class="">
+                <h2 class="text-center">
+                    <a class="decoration-sky-500/30 hover:text-blue-700" href="{% url 'producto:detalle_producto' producto.id %}"><strong>{{ producto.nombre_producto }}</strong></a>
+                </h2><br>
+                <p>Cantidad: {{ producto.stock }}</p>
+                <p>Precio: {{ producto.precio }} Bs.</p>
+                <p>Marca: {{ producto.marca }}</p>
+                <p>Categoría: {{ producto.categoria }}</p>
+                <br><hr>
+                <div class="flex justify-between">
+                    <a class="hover:underline" href="{% url 'producto:actualizar_producto' producto.id %}">Editar</a>
+                    <a class="hover:underline" href="{% url 'producto:eliminar_producto' producto.id %}"><p>Eliminar</p></a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="description">No hay productos registrados</p>
+    {% endfor %}
+</div>
+
+{% include 'paginacion.html' with page_obj=page_obj %}
+
+{% comment %} <form method="POST">
+    {% csrf_token %}
+    <button type="submit">testing</button>
+</form> {% endcomment %}
+
+<br>
+{% comment %} <a href="{% url 'sale:sale_product' %}#">See products to send</a> {% endcomment %}
+<br>
+{% endblock content %}
