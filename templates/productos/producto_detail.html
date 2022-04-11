@@ -2,25 +2,39 @@
 
 
 {% block content %}
-    <div class="card-product detail">
+<div class="text-center mt-8 mb-6">
+    <p class="text-center"><strong class="text-xl">Detalle del producto</strong></p>
+</div>
+<div class="flex justify-center">
+    <div class="flex flex-row mb-8 bg-white shadow-md rounded px-8 py-8">
         <img src="{{ producto.imagen_producto.url }}">
-        <h2 class="color-blue">Nombre del producto: {{object.name_product}}</h2>
-        <p>Cantidad disponible: {{object.stock}}</p>
-        <p>Precio: {{object.precio}}</p>
-        <p>Marca: {{object.marca}}</p>
-        <p>Categoría: {{object.categoria}}</p>
-        <p>Fecha de vencimiento: {{object.fecha_vencimiento}}</p>
-        
-        <br>
-        {% comment %} <h3>Añadir al carrito</h3>
-        <form action="{% url 'sale:add_car' %}" method="post">
-            <input type="hidden" name="id_product" value="{{ object.id }}">
-            {{form.as_p}}
-            {% csrf_token %}
-            <button class="btn primary" type="submit">Agregar al carrito</button>
-    </form> {% endcomment %}
+        <div>
+            <strong class="color-blue">Nombre del producto: </strong>
+            <p>{{object.nombre_producto}}</p>
+            <strong>Cantidad disponible: </strong>
+            <p>{{object.stock}}</p>
+            <strong>Precio: </strong>
+            <p>{{object.precio}}</p>
+            <strong>Marca: </strong>
+            <p>{{object.marca}}</p>
+            <strong>Categoría: </strong>
+            <p>{{object.categoria}}</p>
+            <strong>Fecha de vencimiento: </strong>
+            <p>{{object.fecha_vencimiento}}</p>
+            <br>
+            <form action="#{% comment %} {% url 'sale:add_car' %} {% endcomment %}" method="post">
+                <input type="hidden" name="id_product" value="{{ object.id }}">
+                {{form.as_p}}
+                {% csrf_token %}
+                <div>
+                    <a href="{% url 'producto:index' %}" type="button" class="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Cancelar</a>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        Agregar al carrito</button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <a href="{% url 'producto:index' %}">Cancelar</a>
+</div>
 {% endblock content %}
     

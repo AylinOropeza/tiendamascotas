@@ -2,9 +2,13 @@
 {% block title %}logged out{% endblock title %}
 
 {% block content %}
-<h1>Logged out</h1>
-<p>
-    You have been successfully logged out.
-    You can <a href="{% url 'users:login' %}">log-in again</a>.
-</p>
+<div class="flex justify-center my-8">
+    <div class="flex flex-col mb-8 bg-white shadow-md rounded px-8 py-8">
+        <div class="my-4"><strong>Logged out</strong></div>
+        <div class="my-4"><p>
+            You have been successfully logged out.
+            You can <a class="underline hover:text-blue-800" href="{% url 'users:login' %}">log-in again</a>.
+        </p></div>
+    </div>
+</div>
 {% endblock content %}

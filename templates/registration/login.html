@@ -2,15 +2,16 @@
 {% block title %}log-in{% endblock title %}
 
 {% block content %}
-    <h1>Log-in</h1>
-
-    <p>Are you no register?, <a href="{% url 'users:register' %}">Create an account</a></p>
-    <div class="login-form">
-        <form action="{% url 'users:login' %}" method="POST">
+    <div class="flex justify-center">
+        <form action="{% url 'users:login' %}" method="POST" class="mt-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="text-center mb-4">
+                <p class="text-center"><strong class="text-xl">Log-in</strong></p>
+                <p class="my-4 mb-8">Are you no register?, <a href="{% url 'users:register' %}" class="hover:underline">Create an account</a></p>
+            </div>
             {{ form.as_p }}
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <p><input class="btn success" type="submit" value="Log-in"></p>
+            <p class="text-center my-4"><input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="Log-in"></p>
         </form>
     </div>
 {% endblock content %}

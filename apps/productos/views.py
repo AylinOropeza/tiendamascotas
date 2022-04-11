@@ -10,7 +10,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Producto
+from .models import Categoria, Producto
 from .forms import ProductoForm
 #from apps.sale.forms import AddCarForm
 
@@ -35,13 +35,13 @@ class ProductoTemplateView(TemplateView, ProductoView):
     
 class ProductoListView(ListView):
     template_name = 'productos/producto_list.html'
-    context_object_name = 'productos'
+    context_object_name = 'query'
     paginate_by = 4
     def get_queryset(self):
         productos = Producto.objects.filter(
-            public=True,
-            stock__gt = 0
-        ).order_by('-precio')
+                            public=True,
+                            stock__gt = 0
+                        ).order_by('-precio'),
         return productos
     
 class ProductoDetailView(DetailView):

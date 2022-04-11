@@ -59,4 +59,28 @@ class CustomUserCreationForm(UserCreationForm):
     """ Create a user form inherited from UserCreationForm with fields that we specify """
     class Meta:
         model = User
+        inputClass = 'mb-2 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
         fields = ("first_name", "last_name", "username", "email")
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={
+                    'class': inputClass
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'class': inputClass
+                }
+            ),
+            'username': forms.TextInput(
+                attrs={
+                    'class': inputClass
+                }
+            ),
+            'email': forms.TextInput(
+                attrs={
+                    'class': inputClass
+                }
+            )
+        }
+        
