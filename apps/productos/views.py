@@ -10,6 +10,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from .models import Categoria, Producto
 from .forms import ProductoForm
 #from apps.sale.forms import AddCarForm
@@ -23,7 +24,10 @@ def home(request):
 class ProductoView(View):
     def get(self, request, *args, **kwargs):
         productos = Producto.objects.all()
-        return render(request, "list.html", {'productos':productos})
+        categorias = Categoria.objects.all()
+        
+        return render(request, "list.html", {'productos':productos, 'categorias': categorias})
+    
     def post(self, request, *args, **kwargs):
         print("Dentro del método post()")
         return self.get(request)
@@ -35,13 +39,14 @@ class ProductoTemplateView(TemplateView, ProductoView):
     
 class ProductoListView(ListView):
     template_name = 'productos/producto_list.html'
-    context_object_name = 'query'
+    context_object_name = 'productos'
     paginate_by = 4
     def get_queryset(self):
         productos = Producto.objects.filter(
-                            public=True,
-                            stock__gt = 0
-                        ).order_by('-precio'),
+            public=True,
+            stock__gt = 0
+        ).order_by('-precio')
+        
         return productos
     
 class ProductoDetailView(DetailView):
